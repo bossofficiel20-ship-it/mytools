@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Word Counter - Free Tools</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .container {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    max-width: 420px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+  }
+  .back-link {
+    display: block;
+    margin-bottom: 15px;
+    color: #0077b6;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  h1 {
+    color: #0077b6;
+    font-size: 24px;
+    margin-bottom: 5px;
+    text-align: center;
+  }
+  p.subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  textarea {
+    width: 100%;
+    min-height: 160px;
+    padding: 14px;
+    border: 2px solid #cdeeff;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    resize: vertical;
+    font-family: inherit;
+  }
+  textarea:focus { border-color: #0077b6; }
+  .stats-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 18px;
+  }
+  .stat-box {
+    background: #eef8ff;
+    border-radius: 10px;
+    padding: 14px;
+    text-align: center;
+  }
+  .stat-box .num {
+    font-size: 24px;
+    font-weight: bold;
+    color: #0077b6;
+  }
+  .stat-box .label {
+    font-size: 12px;
+    color: #777;
+    margin-top: 3px;
+  }
+  .clear-btn {
+    width: 100%;
+    padding: 12px;
+    margin-top: 15px;
+    background: #f1f1f1;
+    color: #555;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  .clear-btn:active { background: #e0e0e0; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Home</a>
+  <h1>📝 Word Counter</h1>
+  <p class="subtitle">Text paste karo, instant count dekho</p>
+
+  <textarea id="textInput" placeholder="Yahan apna text likho ya paste karo..." oninput="updateCounts()"></textarea>
+
+  <div class="stats-grid">
+    <div class="stat-box">
+      <div class="num" id="wordCount">0</div>
+      <div class="label">Words</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" id="charCount">0</div>
+      <div class="label">Characters</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" id="charNoSpace">0</div>
+      <div class="label">Chars (no space)</div>
+    </div>
+    <div class="stat-box">
+      <div class="num" id="sentenceCount">0</div>
+      <div class="label">Sentences</div>
+    </div>
+  </div>
+
+  <button class="clear-btn" onclick="clearText()">Clear Karo 🗑️</button>
+</div>
+
+<script>
+function updateCounts() {
+  const text = document.getElementById('textInput').value;
+
+  const words = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
+  const chars = text.length;
+  const charsNoSpace = text.replace(/\s/g, '').length;
+  const sentences = text.trim() === "" ? 0 : (text.match(/[.!?]+/g) || []).length;
+
+  document.getElementById('wordCount').textContent = words;
+  document.getElementById('charCount').textContent = chars;
+  document.getElementById('charNoSpace').textContent = charsNoSpace;
+  document.getElementById('sentenceCount').textContent = sentences;
+}
+
+function clearText() {
+  document.getElementById('textInput').value = "";
+  updateCounts();
+}
+</script>
+
+</body>
+</html>
