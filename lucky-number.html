@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Lucky Number Calculator - Free Tools</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    background: linear-gradient(135deg, #f6d365 0%, #fda085 100%);
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+  .container {
+    background: #fff;
+    border-radius: 20px;
+    padding: 30px 25px;
+    max-width: 400px;
+    width: 100%;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    text-align: center;
+  }
+  .back-link {
+    display: block;
+    text-align: left;
+    margin-bottom: 15px;
+    color: #e07b39;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: bold;
+  }
+  h1 {
+    color: #e07b39;
+    font-size: 24px;
+    margin-bottom: 5px;
+  }
+  p.subtitle {
+    color: #888;
+    font-size: 14px;
+    margin-bottom: 25px;
+  }
+  input {
+    width: 100%;
+    padding: 12px 15px;
+    margin: 8px 0;
+    border: 2px solid #ffe0c2;
+    border-radius: 10px;
+    font-size: 16px;
+    outline: none;
+  }
+  input:focus { border-color: #e07b39; }
+  button {
+    width: 100%;
+    padding: 14px;
+    margin-top: 15px;
+    background: #e07b39;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    font-size: 17px;
+    font-weight: bold;
+    cursor: pointer;
+  }
+  button:active { background: #c4652a; }
+  #result {
+    margin-top: 25px;
+    display: none;
+  }
+  .lucky-number {
+    font-size: 56px;
+    font-weight: bold;
+    color: #e07b39;
+    margin-bottom: 15px;
+  }
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    background: #fff6ee;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 8px;
+    font-size: 14px;
+    color: #555;
+  }
+  .info-row b {
+    color: #e07b39;
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <a href="index.html" class="back-link">&larr; Home</a>
+  <h1>🍀 Lucky Number Calculator</h1>
+  <p class="subtitle">Apni birth date daalo</p>
+
+  <input type="date" id="birthDate">
+
+  <button onclick="calculateLucky()">Nikaalo Lucky Number ✨</button>
+
+  <div id="result">
+    <div class="lucky-number" id="luckyNum">0</div>
+    <div class="info-row"><span>Lucky Color</span> <b id="luckyColor">-</b></div>
+    <div class="info-row"><span>Lucky Day</span> <b id="luckyDay">-</b></div>
+    <div class="info-row"><span>Lucky Gemstone</span> <b id="luckyGem">-</b></div>
+  </div>
+</div>
+
+<script>
+const colors = ["Red", "Blue", "Green", "Yellow", "Purple", "Orange", "Pink", "Golden", "White"];
+const days = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+const gems = ["Ruby", "Pearl", "Emerald", "Diamond", "Topaz", "Sapphire", "Coral", "Opal", "Amethyst"];
+
+function calculateLucky() {
+  const dateVal = document.getElementById('birthDate').value;
+  if (!dateVal) {
+    alert("Pehle apni birth date daalo!");
+    return;
+  }
+
+  const digits = dateVal.replace(/-/g, '').split('').map(Number);
+  let sum = digits.reduce((a, b) => a + b, 0);
+  while (sum > 9) {
+    sum = String(sum).split('').reduce((a, b) => a + Number(b), 0);
+  }
+  if (sum === 0) sum = 9;
+
+  const dateObj = new Date(dateVal);
+  const dayIndex = dateObj.getDay();
+
+  document.getElementById('result').style.display = 'block';
+  document.getElementById('luckyNum').textContent = sum;
+  document.getElementById('luckyColor').textContent = colors[sum % colors.length];
+  document.getElementById('luckyDay').textContent = days[dayIndex];
+  document.getElementById('luckyGem').textContent = gems[sum % gems.length];
+}
+</script>
+
+</body>
+</html>
